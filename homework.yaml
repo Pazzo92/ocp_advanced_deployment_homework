@@ -1,4 +1,10 @@
 ---
+- name: Generate Inventory Hosts File
+  hosts: localhost
+  tasks:
+    - name: Generate Inventory script
+      script: ./scripts/generate_inventory.sh
+      
 - name: Prepare GUID environment variable across all hosts
   hosts: all
   tasks:
@@ -28,12 +34,6 @@
           - atomic-openshift-clients
           - atomic-openshift
         state: present
-
-- name: Generate Inventory Hosts File
-  hosts: localhost
-  tasks:
-    - name: Generate Inventory script
-      script: ./scripts/generate_inventory.sh
 
 - name: Execute the openshift-ansible prerequisites
   import_playbook: /usr/share/ansible/openshift-ansible/playbooks/prerequisites.yml
